@@ -1,0 +1,72 @@
+import {test,Page,expect} from "@playwright/test"
+import { LoginPage } from "../Pages/LoginPage"
+import { Inventrypage } from "../Pages/InventryPage"
+import { cartpage } from "../Pages/CartPage"
+import { checkout } from "../Pages/CheckoutPage"
+import { testdata } from "../Utils/Testdata"
+//import { getconfig } from "../Utils/env"
+
+
+let Check:checkout;
+test.beforeEach("Login Application and select products",async({page})=>
+{
+    let login=new LoginPage(page);
+    let Invent=new Inventrypage(page);
+    let Cart=new cartpage(page);
+    Check=new checkout(page);
+    //const config=getconfig();
+    await page.goto(testdata.URL);
+    //await page.goto(config.baseURL!);
+    await login.LoginApplication(testdata.Usename,testdata.Password)
+    await Invent.AddMultipleProduct();
+    await Cart.VerifyBoltTShirtOnCartPage();
+    await Cart.OpenCheckOutPage();
+})
+test("Verify titile of checkout page",async({page})=>
+{
+    await Check.VerifyTitleofCheckoutPage();
+    await expect(Check.checkoutpagetitle).toHaveText("Checkout: Your Information");
+    await expect(page).toHaveTitle("Swag Labs")
+})
+test("Verify cancel button on checkout page",async({page})=>
+{
+    await Check.VerifyCancelButton()
+    await expect(page).toHaveURL("https://www.saucedemo.com/cart.html");
+})
+test("Validate empty List",async({page})=>
+{
+    await Check.VerifyContinue();
+    await Check.VerifyValidationMassage("Error: First Name is required");
+})
+test("Verify FirstName validation",async({page})=>
+{
+    await Check.VerifyFillDetail(undefined,"Jagtap","416410");
+    await Check.VerifyContinue();
+    await Check.VerifyValidationMassage("Error: First Name is required");
+})
+test("Verify LastName validation",async({page})=>
+{
+    await Check.VerifyFillDetail("Dhanaji",undefined,"416410")
+    await Check.VerifyContinue();
+    await Check.VerifyValidationMassage("Error: Last Name is required");
+})
+test("Verify Postal code validation",async({page})=>
+{
+    await Check.VerifyFillDetail("Dhanaji","Jagtap")
+    await Check.VerifyContinue();
+    await Check.VerifyValidationMassage("Error: Postal Code is required");
+})
+test.only("Verify Twitter logo",async({page})=>
+{
+    await expect(Check.twitlogo).toBeVisible();
+    const twitpage=await Check.VerifyTwitterLogoInCheckoutPage();
+    await expect(twitpage).toHaveURL("https://x.com/saucelabs");
+    await expect(twitpage).toHaveTitle("Sauce Labs (@saucelabs) / X");
+})
+test.only("Verify Facebook logo",async ({page})=>
+{
+    await expect(Check.facelogo).toBeVisible();
+    const facepage=await Check.VerifyFaceLogoInCheckoutPage();
+    await expect(facepage).toHaveURL("https://www.facebook.com/saucelabs");
+    await expect(facepage).toHaveTitle("Sauce Labs | Facebook");
+})
