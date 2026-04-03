@@ -13,6 +13,12 @@ export class checkout
     Postalcode:Locator;
     twitlogo:Locator;
     facelogo:Locator;
+    linkedinlogo:Locator;
+    Qtylabel:Locator;
+    Descriptionlabel:Locator;
+    footertext:Locator;
+    cartcoutcheckoutpage:Locator;
+    cartpage:Locator;
     constructor(private page:Page)
     {
         this.checkoutpagetitle=page.locator(".title");
@@ -25,6 +31,12 @@ export class checkout
         this.Postalcode=page.locator("#postal-code");
         this.twitlogo=page.getByText("Twitter");
         this.facelogo=page.getByText("Facebook");
+        this.linkedinlogo=page.getByText("LinkedIn");
+        this.Qtylabel=page.getByText("QTY");
+        this.Descriptionlabel=page.getByTestId("Description")
+        this.footertext=page.locator(".footer_copy");
+        this.cartcoutcheckoutpage=page.locator(".shopping_cart_badge")
+        this.cartpage=page.locator(".shopping_cart_link");
     }
     async VerifyTitleofCheckoutPage()
     {
@@ -71,7 +83,22 @@ export class checkout
         await this.facelogo.isVisible();
         return facepage;
     }
-
+    async VerifyLinkedInLogoInCheckoutPage()
+    {
+        const [linkedInpage]=await Promise.all([this.page.context().waitForEvent("page"),this.linkedinlogo.click()]);
+        await linkedInpage.waitForLoadState();
+        await this.linkedinlogo.isVisible();
+        return linkedInpage;
+    }
+    async VerifyFoootertextinCheckOutpage()
+    {
+        await this.footertext.innerText();
+    }
+    async VerifyCartcountOnCheckoutPage()
+    {
+        await this.cartcoutcheckoutpage.innerText();
+        await this.cartpage.click();
+    }
 
 }
 
