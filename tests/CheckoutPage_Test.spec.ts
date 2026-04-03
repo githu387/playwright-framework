@@ -56,17 +56,43 @@ test("Verify Postal code validation",async({page})=>
     await Check.VerifyContinue();
     await Check.VerifyValidationMassage("Error: Postal Code is required");
 })
-test.only("Verify Twitter logo",async({page})=>
+test("Verify Twitter logo",async({page})=>
 {
     await expect(Check.twitlogo).toBeVisible();
     const twitpage=await Check.VerifyTwitterLogoInCheckoutPage();
     await expect(twitpage).toHaveURL("https://x.com/saucelabs");
     await expect(twitpage).toHaveTitle("Sauce Labs (@saucelabs) / X");
 })
-test.only("Verify Facebook logo",async ({page})=>
+test("Verify Facebook logo",async ({page})=>
 {
     await expect(Check.facelogo).toBeVisible();
     const facepage=await Check.VerifyFaceLogoInCheckoutPage();
     await expect(facepage).toHaveURL("https://www.facebook.com/saucelabs");
     await expect(facepage).toHaveTitle("Sauce Labs | Facebook");
 })
+test("Verify LiknedIn logo",async({page})=>
+{
+    await expect(Check.linkedinlogo).toBeVisible();
+    const linkedinpage=await Check.VerifyLinkedInLogoInCheckoutPage();
+    await expect(linkedinpage).toHaveURL("https://www.linkedin.com/company/sauce-labs/");
+    await expect(linkedinpage).toHaveTitle("Sauce Labs | LinkedIn");
+})
+test("Verify footer text in ckeckout page",async({page})=>
+{
+    await Check.VerifyFoootertextinCheckOutpage();
+    await expect(Check.footertext).toHaveText("© 2026 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy");
+})
+test("Cart count on Checkout Page",async({page})=>
+{
+    await Check.VerifyCartcountOnCheckoutPage();
+    await expect(Check.cartcoutcheckoutpage).toHaveText("1")
+    await expect(page).toHaveURL("https://www.saucedemo.com/cart.html");
+})
+test("Open Overview page",async({page})=>
+{
+    await Check.VerifyFillDetail("Dhanaji","Jagtap","416410");
+    await Check.VerifyContinue();
+    await expect(page).toHaveURL("https://www.saucedemo.com/checkout-step-two.html");
+
+})
+
