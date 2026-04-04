@@ -93,6 +93,6 @@ test("Open Overview page",async({page})=>
     await Check.VerifyFillDetail("Dhanaji","Jagtap","416410");
     await Check.VerifyContinue();
     await expect(page).toHaveURL("https://www.saucedemo.com/checkout-step-two.html");
-
 })
+
 
