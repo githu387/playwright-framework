@@ -73,4 +73,39 @@ test("Verify Total Price of Product",async({page})=>
     await expect(over.summarytax).toHaveText("Tax: $1.28");
     await expect(over.total).toHaveText("Total: $17.27")
 })
-
+test("Verify Cancel button on Overview Page",async({page})=>
+{
+    await over.VerifyCancelbuttonOnOverviewPage();
+    await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html");
+})
+test("Verify Twitter on Overview Page",async({page})=>
+{
+    await expect(over.twitlink).toBeVisible();
+    const twitterpage=await over.VerifyTwitterLink();
+    await expect(twitterpage).toHaveURL("https://x.com/saucelabs");
+    await expect(twitterpage).toHaveTitle("Sauce Labs (@saucelabs) / X");
+})
+test("Verify Facebook on Overview page",async({page})=>
+{
+    await expect(over.facelink).toBeVisible();
+    const facebookpage=await over.VerifyFacebookLink();
+    await expect(facebookpage).toHaveURL("https://www.facebook.com/saucelabs");
+    await expect(facebookpage).toHaveTitle("Sauce Labs | Facebook");
+})
+test("Verify LinkedIn on Overview Page",async({page})=>
+{
+    await expect(over.facelink).toBeVisible();
+    const linkedpage=await over.VerifyLinkedInLink();
+    await expect(linkedpage).toHaveURL("https://www.linkedin.com/company/sauce-labs/");
+    expect(linkedpage).toHaveTitle("Sauce Labs | LinkedIn");
+})
+test("Verify footer in Overview Page",async({page})=>
+{
+    await over.VerifyFooterInOverviewPage();
+    await expect(over.footeroverview).toHaveText("© 2026 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy");
+})
+test("Verify finish button",async({page})=>
+{
+    await over.VerifyFinishbutton();
+    await expect(page).toHaveURL("https://www.saucedemo.com/checkout-complete.html");
+})

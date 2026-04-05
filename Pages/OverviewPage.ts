@@ -17,6 +17,12 @@ export class Overview
     subtotal:Locator;
     summarytax:Locator;
     total:Locator;
+    cancelbtn:Locator;
+    twitlink:Locator;
+    facelink:Locator;
+    linkedlink:Locator;
+    footeroverview:Locator;
+    finishbutton:Locator;
     constructor(private page:Page)
     {
         this.pagetitle=page.locator(".title");
@@ -33,6 +39,12 @@ export class Overview
         this.subtotal=page.locator(".summary_subtotal_label");
         this.summarytax=page.locator(".summary_tax_label");
         this.total=page.locator(".summary_total_label");
+        this.cancelbtn=page.locator("#cancel")
+        this.twitlink=page.getByText("Twitter");
+        this.facelink=page.getByText("Facebook");
+        this.linkedlink=page.getByText("LinkedIn");
+        this.footeroverview=page.locator(".footer_copy");
+        this.finishbutton=page.locator("#finish");
     }
     async VerifyTitleofpage()
     {
@@ -71,5 +83,35 @@ export class Overview
         await this.subtotal.innerText();
         await this.summarytax.innerText();
         await this.total.innerText();
+    }
+    async VerifyCancelbuttonOnOverviewPage()
+    {
+        await this.cancelbtn.click();
+    }
+    async VerifyTwitterLink()
+    {
+        const [twitterpage]=await Promise.all([this.page.context().waitForEvent("page"),this.twitlink.click()]);
+        await twitterpage.waitForLoadState();
+        return twitterpage;
+    }
+    async VerifyFacebookLink()
+    {
+        const [facepage]=await Promise.all([this.page.context().waitForEvent("page"),this.facelink.click()]);
+        await facepage.waitForLoadState();
+        return facepage;
+    }
+    async VerifyLinkedInLink()
+    {
+        const [likedinpage]=await Promise.all([this.page.context().waitForEvent("page"),this.linkedlink.click()]);
+        await likedinpage.waitForLoadState();
+        return likedinpage;
+    }
+    async VerifyFooterInOverviewPage()
+    {
+        await this.footeroverview.innerText();
+    }
+    async VerifyFinishbutton()
+    {
+        await this.finishbutton.click();
     }
 }
