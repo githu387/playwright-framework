@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Install Dependencies') {
             steps {
                 bat 'npm install'
@@ -17,6 +18,12 @@ pipeline {
         stage('Run Tests') {
             steps {
                 bat 'npx playwright test'
+            }
+        }
+
+        stage('Archive Report') {
+            steps {
+                archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
             }
         }
     }
