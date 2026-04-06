@@ -14,7 +14,7 @@ test.beforeEach("Login application and redirect to overview page",async({page})=
     let cart=new cartpage(page)
     let check=new checkout(page)
     over=new Overview(page);
-    await page.goto(testdata.URL);
+    await page.goto('/');
     await login.LoginApplication(testdata.Usename,testdata.Password);
     await invent.AddMultipleProduct();
     await cart.VerifyBoltTShirtOnCartPage();

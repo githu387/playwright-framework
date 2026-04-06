@@ -11,8 +11,9 @@ test.beforeEach("Login Application and adding product",async({page})=>
 {
     let login=new LoginPage(page)
     let Invent=new Inventrypage(page)
-    await page.goto(testdata.URL);
+    await page.goto('/');
     await login.LoginApplication(testdata.Usename,testdata.Password)
+    //await login.LoginApplication(process.env.USERNAME!,process.env.PASSWORD!);
     await Invent.AddMultipleProduct();
     //await Invent.cartpage.click()
     Cart=new cartpage(page);

@@ -7,7 +7,7 @@ let login:LoginPage
 test("Login SwagLab Application",async({page})=>
 {
    login=new LoginPage(page)
-   await page.goto(testdata.URL);
+   await page.goto('/');
    await expect(page).toHaveURL(testdata.URL)
    await expect(page).toHaveTitle("Swag Labs");
    //await login.LoginApplication(testdata.Usename,testdata.Password)

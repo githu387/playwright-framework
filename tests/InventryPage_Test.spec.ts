@@ -10,7 +10,7 @@ test.beforeEach("Login Application",async({page})=>
 {
     //login:LoginPage;
     const login=new LoginPage(page)
-     await page.goto(testdata.URL)
+     await page.goto('/')
      await login.LoginApplication(testdata.Usename,testdata.Password);
      Invent=new Inventrypage(page)
     

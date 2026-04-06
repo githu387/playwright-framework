@@ -15,7 +15,7 @@ test.beforeEach("Login Application and select products",async({page})=>
     let Cart=new cartpage(page);
     Check=new checkout(page);
     //const config=getconfig();
-    await page.goto(testdata.URL);
+    await page.goto('/');
     //await page.goto(config.baseURL!);
     await login.LoginApplication(testdata.Usename,testdata.Password)
     await Invent.AddMultipleProduct();
