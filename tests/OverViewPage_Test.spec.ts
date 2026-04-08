@@ -104,7 +104,7 @@ test("Verify footer in Overview Page",async({page})=>
     await over.VerifyFooterInOverviewPage();
     await expect(over.footeroverview).toHaveText("© 2026 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy");
 })
-test.only("Verify finish button",async({page})=>
+test("Verify finish button",async({page})=>
 {
     await over.VerifyFinishbutton();
     await expect(page).toHaveURL("https://www.saucedemo.com/checkout-complete.html");
