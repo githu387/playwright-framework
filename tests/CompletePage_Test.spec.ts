@@ -50,3 +50,24 @@ test("Verify HomePage on Completed button",async({page})=>
     await com.VerifyHomepagebutton();
     await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html");
 })
+test("Verify Twitter logo",async({page})=>
+{
+    await expect(com.linkedlogp).toBeVisible();
+    let twiterlogo=await com.VerifyTwitterLogo();
+    await expect(twiterlogo).toHaveURL("https://x.com/saucelabs");
+    await expect(twiterlogo).toHaveTitle("Sauce Labs (@saucelabs) / X");
+})
+test("Verify facebook logo",async({page})=>
+{
+    await expect(com.facelogo).toBeVisible();
+    let facelogo=await com.VerifyFacebookLogo();
+    await expect(facelogo).toHaveURL("https://www.facebook.com/saucelabs");
+    await expect(facelogo).toHaveTitle("Sauce Labs | Facebook");
+})
+test("Verify Linkedin logo",async({page})=>
+{
+    await expect(com.linkedlogp).toBeVisible();
+    const linkedinpage=await com.VerifyLinkedInLogo();
+    await expect(linkedinpage).toHaveURL("https://www.linkedin.com/company/sauce-labs/");
+    await expect(linkedinpage).toHaveTitle("Sauce Labs | LinkedIn");
+})

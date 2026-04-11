@@ -1,4 +1,4 @@
-import {Locator,Page} from "@playwright/test"
+import {expect, Locator,Page} from "@playwright/test"
 
 
 export class completepage
@@ -9,6 +9,10 @@ export class completepage
     cartlink:Locator;
     private homepagebtn:Locator;
     headerimg:Locator;
+    twitlogo:Locator;
+    facelogo:Locator;
+    linkedlogp:Locator;
+    footerpage:Locator;
     constructor(private page:Page)
     {
         this.title=page.locator(".title");
@@ -16,7 +20,11 @@ export class completepage
         this.headerinfo=page.locator(".complete-text");
         this.cartlink=page.locator(".shopping_cart_link");
         this.homepagebtn=page.locator(".btn");
-        this.headerimg=page.locator(".pony_express")
+        this.headerimg=page.locator(".pony_express");
+        this.twitlogo=page.getByText("Twitter");
+        this.facelogo=page.getByText("Facebook");
+        this.linkedlogp=page.getByText("LinkedIn");
+        this.footerpage=page.locator(".footer_copy");
     }
     async VerifytitleonCompletePage()
     {
@@ -35,6 +43,27 @@ export class completepage
     async VerifyHomepagebutton()
     {
         await this.homepagebtn.click();
+    }
+    async VerifyTwitterLogo()
+    {
+        const [newPage]=await Promise.all([this.page.context().waitForEvent("page"),this.twitlogo.click()]);
+        await newPage.waitForLoadState();
+        await this.twitlogo.isVisible();
+        return newPage;
+    }
+    async VerifyFacebookLogo()
+    {
+        const [newpage]=await Promise.all([this.page.context().waitForEvent("page"),this.facelogo.click()]);
+        await newpage.waitForLoadState();
+        await this.facelogo.isVisible();
+        return newpage;
+    }
+    async VerifyLinkedInLogo()
+    {
+        const [newpage]=await Promise.all([this.page.context().waitForEvent("page"),this.linkedlogp.click()]);
+        await newpage.waitForLoadState();
+        await this.linkedlogp.isVisible();
+        return newpage;
     }
 
 }
