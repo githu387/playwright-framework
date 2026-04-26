@@ -11,15 +11,15 @@ import { testdata } from "../Utils/Testdata";
 let com:completepage;
 test.beforeEach("Login appplication and add to cart",async({page})=>
 {
-    let login=new LoginPage(page);
+    //let login=new LoginPage(page);
     let Invent=new Inventrypage(page);
     let cart=new cartpage(page);
     let check=new checkout(page);
     let over=new Overview(page);
     com=new completepage(page);
 
-    await page.goto('/');
-    await login.LoginApplication(testdata.Usename,testdata.Password);
+    await page.goto('https://www.saucedemo.com/inventory.html');
+    //await login.LoginApplication(testdata.Usename,testdata.Password);
     await Invent.AddMultipleProduct();
     await cart.VerifyBoltTShirtOnCartPage();
     await cart.OpenCheckOutPage();

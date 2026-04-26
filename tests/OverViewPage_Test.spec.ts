@@ -9,13 +9,13 @@ import { testdata } from "../Utils/Testdata";
 let over:Overview;
 test.beforeEach("Login application and redirect to overview page",async({page})=>
 {
-    let login=new LoginPage(page)
+    //let login=new LoginPage(page)
     let invent=new Inventrypage(page)
     let cart=new cartpage(page)
     let check=new checkout(page)
     over=new Overview(page);
-    await page.goto('/');
-    await login.LoginApplication(testdata.Usename,testdata.Password);
+    await page.goto('https://www.saucedemo.com/inventory.html');
+    //await login.LoginApplication(testdata.Usename,testdata.Password);
     await invent.AddMultipleProduct();
     await cart.VerifyBoltTShirtOnCartPage();
     await cart.OpenCheckOutPage();
@@ -97,7 +97,7 @@ test("Verify LinkedIn on Overview Page",async({page})=>
     await expect(over.facelink).toBeVisible();
     const linkedpage=await over.VerifyLinkedInLink();
     await expect(linkedpage).toHaveURL("https://www.linkedin.com/company/sauce-labs/");
-    expect(linkedpage).toHaveTitle("Sauce Labs | LinkedIn");
+    await expect(linkedpage).toHaveTitle("Sauce Labs | LinkedIn");
 })
 test("Verify footer in Overview Page",async({page})=>
 {

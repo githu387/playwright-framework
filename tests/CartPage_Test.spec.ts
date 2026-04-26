@@ -9,10 +9,10 @@ import { cartpage } from "../Pages/CartPage";
 let Cart:cartpage
 test.beforeEach("Login Application and adding product",async({page})=>
 {
-    let login=new LoginPage(page)
+    //let login=new LoginPage(page)
     let Invent=new Inventrypage(page)
-    await page.goto('/');
-    await login.LoginApplication(testdata.Usename,testdata.Password)
+    await page.goto('https://www.saucedemo.com/inventory.html');
+    //await login.LoginApplication(testdata.Usename,testdata.Password)
     //await login.LoginApplication(process.env.USERNAME!,process.env.PASSWORD!);
     await Invent.AddMultipleProduct();
     //await Invent.cartpage.click()
