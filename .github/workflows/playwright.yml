@@ -12,6 +12,9 @@ jobs:
       matrix:
         env: [qa, uat, prod]
 
+    env:
+      ENV: ${{ matrix.env }}   
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -28,8 +31,6 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright Tests (${{ matrix.env }})
-        env:
-          ENV: ${{ matrix.env }}
         run: npx playwright test
 
       - name: Upload Report (${{ matrix.env }})
