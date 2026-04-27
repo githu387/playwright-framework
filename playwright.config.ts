@@ -1,7 +1,14 @@
 import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from "dotenv"; //updated by dhanaji
 
-dotenv.config({path:`.env.${process.env.ENV || "qa"}`}); //updated by dhanaji
+
+dotenv.config({
+  path:`.env.${process.env.ENV || "qa"}`,
+  override:true,
+ }) //updated by dhanaji
+
+
+  //path:`.env.${process.env.ENV || "qa"}`
 
 /**
  * Read environment variables from file.
@@ -14,8 +21,15 @@ dotenv.config({path:`.env.${process.env.ENV || "qa"}`}); //updated by dhanaji
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+//const storageFile = `storageState.${process.env.ENV || "qa"}.json`; //modified by dhanaji
 export default defineConfig({
   testDir: './tests',
+  use:{
+    baseURL:process.env.BASE_URL,
+    storageState:'storageState.json',
+    headless: true,
+    trace: 'on-first-retry',
+  },                                   //modified by dhanaji
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -23,25 +37,35 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : 4,
+  
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    baseURL:process.env.BASE_URL, //updated bu dhanaji
-    headless:true,    //updated by dhanaji
+ //use: {
+    //baseURL:process.env.BASE_URL, //updated bu dhanaji
+    //headless:true,    //updated by dhanaji
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-  },
+    //trace: 'on-first-retry',   //modified by dhanaji
+ // },   //modified by dhanaji
+  
 
   /* Configure projects for major browsers */
   projects: [
     {
+      name:'setup', // modified by dhanaji
+      testMatch: /.*auth\.setup\.spec\.ts/,   //modified by dhanaji
+    },
+    {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      testIgnore: /.*auth\.setup\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'],
+        storageState:'storageState.json',  //modified by dhanaji
+       },
+       dependencies:['setup'], //modified by dhanaji
     },
 /*
     {

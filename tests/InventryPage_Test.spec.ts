@@ -9,9 +9,9 @@ let Invent:Inventrypage;
 test.beforeEach("Login Application",async({page})=>
 {
     //login:LoginPage;
-    const login=new LoginPage(page)
-     await page.goto('/')
-     await login.LoginApplication(testdata.Usename,testdata.Password);
+    //const login=new LoginPage(page)
+     await page.goto('https://www.saucedemo.com/inventory.html')
+     //await login.LoginApplication(testdata.Usename,testdata.Password);
      Invent=new Inventrypage(page)
     
 })
@@ -20,7 +20,7 @@ test("Verify Add BackPack product",async({page})=>
      /*const login=new LoginPage(page)
      await page.goto(testdata.URL)*/
      //await login.LoginApplication(testdata.Usename,testdata.Password);
-     const Invent=new Inventrypage(page)
+     //const Invent=new Inventrypage(page)
      await Invent.AddtoProduct()
      await expect(Invent.cartcount).toHaveText("1");
      await expect(Invent.backpackText).toHaveText("Sauce Labs Backpack");
@@ -41,8 +41,6 @@ test("Verify Logout button",async({page})=>
   
    await expect(Invent.menu).toBeVisible();
    await expect(Invent.menu).toBeEnabled();
-   await expect(Invent.logoutbtn).toBeVisible();
-   await expect(Invent.logoutbtn).toBeEnabled();
    await Invent.VerifyLogout();
    await expect(page).toHaveURL("https://www.saucedemo.com/");
 })

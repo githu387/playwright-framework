@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 
 export class Inventrypage
 {
@@ -27,7 +27,7 @@ export class Inventrypage
         this.backpackText=page.getByText("Sauce Labs Backpack");
         this.backpackprize=page.getByText("$29.99");
         this.backpackInfo=page.getByText("carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.");
-        this.menu=page.locator("#react-burger-menu-btn");
+        this.menu=page.locator(".bm-burger-button button");
         this.productbtn=page.locator("#about_sidebar_link");
         this.logoutbtn=page.locator("#logout_sidebar_link");
         this.producttitle=page.locator(".title")
@@ -57,6 +57,9 @@ export class Inventrypage
     async VerifyLogout()
     {
         await this.menu.click()
+        await this.logoutbtn.isVisible();
+        await expect(this.logoutbtn).toBeEnabled();
+        await expect(this.logoutbtn).toBeVisible();
         await this.logoutbtn.click();
     }
     async VerifyBikeLightProduct()

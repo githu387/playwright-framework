@@ -10,14 +10,14 @@ import { testdata } from "../Utils/Testdata"
 let Check:checkout;
 test.beforeEach("Login Application and select products",async({page})=>
 {
-    let login=new LoginPage(page);
+    //let login=new LoginPage(page);
     let Invent=new Inventrypage(page);
     let Cart=new cartpage(page);
     Check=new checkout(page);
     //const config=getconfig();
-    await page.goto('/');
+    await page.goto('https://www.saucedemo.com/inventory.html');
     //await page.goto(config.baseURL!);
-    await login.LoginApplication(testdata.Usename,testdata.Password)
+    //await login.LoginApplication(testdata.Usename,testdata.Password)
     await Invent.AddMultipleProduct();
     await Cart.VerifyBoltTShirtOnCartPage();
     await Cart.OpenCheckOutPage();
