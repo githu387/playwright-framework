@@ -1,4 +1,4 @@
-name: Playwright CI Multi-Env
+name: Playwright CI
 
 on:
   push:
@@ -7,13 +7,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        env: [qa, uat, prod]
-
-    env:
-      ENV: ${{ matrix.env }}   
 
     steps:
       - name: Checkout Code
@@ -30,11 +23,12 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright Tests (${{ matrix.env }})
+      - name: Run Playwright Tests
         run: npx playwright test
 
-      - name: Upload Report (${{ matrix.env }})
+      - name: Upload Report
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-${{ matrix.env }}
+          name: playwright-report
           path: playwright-report/
+
